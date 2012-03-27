@@ -1,0 +1,8 @@
+/logs
+/cache
+/upload
+/index.php
+/.cache
+/.settings
+.project
+.buildpath
