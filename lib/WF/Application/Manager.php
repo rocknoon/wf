@@ -81,8 +81,11 @@ class WF_Application_Manager {
 	private function _initConfig($configFile , $env) {
 		if (file_exists($configFile)) {
 			require $configFile;
-			if ($env === 'product') return $product;
-			else {
+			if ($env === 'product'){
+				$develop = null;
+				unset($develop);
+				return $product;
+			} else {
 				$product = null;
 				unset($product);
 				return $develop;
