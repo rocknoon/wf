@@ -1,7 +1,6 @@
 <?php
 
 class WF_Application_Manager {
-
 	/*
 	 * @var array
 	 */
@@ -80,6 +79,15 @@ class WF_Application_Manager {
 根据当前的环境 去初始化出系统所需要的配置
 	 */
 	private function _initConfig($configFile , $env) {
+		if (file_exists($configFile)) {
+			require $configFile;
+			if ($env === 'product') return $product;
+			else {
+				$product = null;
+				unset($product);
+				return $develop;
+			}
+		}
 	}
 
 	private function _bootstrap() {
