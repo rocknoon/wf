@@ -23,4 +23,4 @@ $product->smarty->compress= true;
 $develop = & $product;
 
 $develop->db->host = '127.0.0.1';
-$product->smarty->cache_life_time= 0;
+$develop->smarty->cache_life_time= 0;
