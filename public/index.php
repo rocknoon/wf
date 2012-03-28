@@ -1,5 +1,4 @@
-<?php 
-define( "APP_PATH" , "/../");
-
-require_once "WF_Application.php";
-WF_Application_Manager::Instance()->run( APP_PATH."/config.php" , "production" );
+<?php
+define('APP_PATH', dirname(__FILE__));
+require APP_PATH . '/lib/WF/Application/Manager.php';
+WF_Application_Manager::Instance()->run(APP_PATH . '/config.php' , 'production');
