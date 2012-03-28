@@ -1,11 +1,10 @@
 <?php
 
 class WF_Application_Manager {
-
 	/*
 	 * @var array
 	 */
-	private $_config;
+	public static $Config;
 
 	/**
 	 * 
@@ -28,12 +27,12 @@ class WF_Application_Manager {
 	 * @param unknown_type $env 
 	 */
 	public static function run($configFile , $env) {
-		$this->_initConfig($configFile , $env);
+		self::_initConfig($configFile , $env);
 
 		try {
-			$this->_bootstrap();
+			self::_bootstrap();
 
-			$this->_dispath();
+			self::_dispath();
 		}
 		catch(Exception $ex) {
 			// system will log it.
@@ -77,9 +76,20 @@ class WF_Application_Manager {
 
 	/**
 	 * 初始化配置
-根据当前的环境 去初始化出系统所需要的配置
+	 * 根据当前的环境 去初始化出系统所需要的配置
 	 */
-	private function _initConfig($configFile , $env) {
+	private static function _initConfig($configFile , $env) {
+		if (file_exists($configFile)) {
+			require $configFile;
+			if ($env === 'product'){
+				$develop = null;
+				unset($develop);
+			} else {
+				$product = null;
+				unset($product);
+			}
+			self::$Config = $$env;
+		}
 	}
 
 	
