@@ -20,7 +20,7 @@ $product->smarty->right_delimiter= '}';
 $product->smarty->auto_literal= false;
 $product->smarty->compress= true;
 
-$develop = & $product;
+$develop = clone $product;
 
 $develop->db->host = '127.0.0.1';
 $develop->smarty->cache_life_time= 0;
