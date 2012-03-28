@@ -82,6 +82,11 @@ class WF_Application_Manager {
 	private function _initConfig($configFile , $env) {
 	}
 
+	
+	/**
+	 * 
+	 * @author Rocky 2012-3-28
+	 */
 	private function _bootstrap() {
 		/**
 		 * 核心启动
@@ -90,6 +95,24 @@ class WF_Application_Manager {
 		 * 2. include_path 设置
 		 * 3. 加载 WF_Loader
 		 */
+		
+		
+		/**
+		 * 把 app/modules 和 lib 俩个目录仿如 include_path 下 
+		 */
+		set_include_path(implode(PATH_SEPARATOR, array(
+				APP_PATH . "/lib",
+				APP_PATH . "/app/modules",
+				get_include_path(),
+		)));
+		
+		
+		/**
+		 * 启动 WF_Loader
+		 */
+		include APP_PATH . '/lib/WF/Loader/Standard.php';
+		WF_Loader_Standard::Start();
+		
 
 	}
 }
