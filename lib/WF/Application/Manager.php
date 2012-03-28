@@ -76,7 +76,7 @@ class WF_Application_Manager {
 
 	/**
 	 * 初始化配置
-根据当前的环境 去初始化出系统所需要的配置
+	 * 根据当前的环境 去初始化出系统所需要的配置
 	 */
 	private function _initConfig($configFile , $env) {
 		if (file_exists($configFile)) {
@@ -84,11 +84,11 @@ class WF_Application_Manager {
 			if ($env === 'product'){
 				$develop = null;
 				unset($develop);
-				return $product;
+				$this->_config = $product;
 			} else {
 				$product = null;
 				unset($product);
-				return $develop;
+				$this->_config = $develop;
 			}
 		}
 	}
