@@ -6,19 +6,9 @@ class WF_Application_Manager {
 	 */
 	public static $Config;
 
-	/**
-	 * 
-	 * @var WF_Application_Request 
-	 */
-	private $_request;
+	
 
-	/**
-	 * 
-	 * @var WF_Application_Response 
-	 */
-	private $_response;
-
-	private $_component = array();
+	private static $_Component = array();
 
 	/**
 	 * 系统的启动入口
@@ -26,13 +16,14 @@ class WF_Application_Manager {
 	 * @param unknown_type $configFile 
 	 * @param unknown_type $env 
 	 */
-	public static function run($configFile , $env) {
-		self::_initConfig($configFile , $env);
+	public static function Run($configFile , $env) {
+		
+		self::_InitConfig($configFile , $env);
 
 		try {
-			self::_bootstrap();
+			self::_Bootstrap();
 
-			self::_dispath();
+			//self::_Dispath();
 		}
 		catch(Exception $ex) {
 			// system will log it.
@@ -46,10 +37,12 @@ class WF_Application_Manager {
 	 * @return mixed $component
 	 * @param unknown_type $cName 
 	 */
-	public function component($cName) {
+	public static function Component($cName) {
+		
 	}
 
-	private function _dispath() {
+	private static function _Dispath() {
+		
 		// 获取HTTP  请求体和返回体
 		$request = WF_Application_Request::Instance();
 		$response = WF_Application_Response::Instance(); 
@@ -78,7 +71,8 @@ class WF_Application_Manager {
 	 * 初始化配置
 	 * 根据当前的环境 去初始化出系统所需要的配置
 	 */
-	private static function _initConfig($configFile , $env) {
+	private static function _InitConfig($configFile , $env) {
+		
 		if (file_exists($configFile)) {
 			require $configFile;
 			if ($env === 'product'){
@@ -90,6 +84,7 @@ class WF_Application_Manager {
 			}
 			self::$Config = $$env;
 		}
+		
 	}
 
 	
@@ -97,7 +92,7 @@ class WF_Application_Manager {
 	 * 
 	 * @author Rocky 2012-3-28
 	 */
-	private function _bootstrap() {
+	private static function _Bootstrap() {
 		/**
 		 * 核心启动
 		 * 
