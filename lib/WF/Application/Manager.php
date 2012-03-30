@@ -1,15 +1,19 @@
 <?php
 
+include APP_PATH . "/lib/WF/Util.php";
+
 class WF_Application_Manager {
+	
+	
 	/*
 	 * @var array
 	 */
 	public static $Config;
 
 	
-
 	private static $_Component = array();
 
+	
 	/**
 	 * 系统的启动入口
 	 * 
@@ -22,11 +26,11 @@ class WF_Application_Manager {
 
 		try {
 			self::_Bootstrap();
-
-			//self::_Dispath();
+			self::_Dispath();
 		}
 		catch(Exception $ex) {
 			// system will log it.
+			throw $ex;
 		}
 	}
 
@@ -44,27 +48,32 @@ class WF_Application_Manager {
 	private static function _Dispath() {
 		
 		// 获取HTTP  请求体和返回体
-		$request = WF_Application_Request::Instance();
-		$response = WF_Application_Response::Instance(); 
+		$request 	= WF_Application_Request::Instance();
+		//$response 	= WF_Application_Response::Instance(); 
+		
 		// 路由管理器初始化
-		$routerM = WF_Application_Router_Manager::Instance(); 
+		$router = WF_Application_Router::Instance();
+		
 		// 请求分发器
-		$dispather = WF_Application_Dispather::Instance(); 
+		//$dispather = WF_Application_Dispather::Instance(); 
 		// 进行路由
-		$routerM->router($request);
+		$router->router($request);
+		
+		dump($request);
+		die();
 
-		try {
-			$dispather->dispath($request , $response);
-		}
-		catch(Exception $ex) {
-			// error controller show the error
-			// also system will log the error
-		}
+// 		try {
+// 			$dispather->dispath($request , $response);
+// 		}
+// 		catch(Exception $ex) {
+// 			// error controller show the error
+// 			// also system will log the error
+// 		}
 
 		/**
 		 * 进行输出
 		 */
-		$response->send();
+		//$response->send();
 	}
 
 	/**

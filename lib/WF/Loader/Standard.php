@@ -34,8 +34,7 @@ class WF_Loader_Standard {
 		$LIB_PATH = APP_PATH . "/lib/";
 		
 		$nps = explode('_', $class);
-		
-		
+	
 		switch( $nps[0] ){
 			
 			/**
@@ -51,6 +50,7 @@ class WF_Loader_Standard {
 			 * 
 			 */
 			case "WF":
+				
 				//加载 Component 类
 				if( $nps[1] === 'Component' ){
 					array_shift($nps);
@@ -60,10 +60,11 @@ class WF_Loader_Standard {
 				else{
 					include_once $LIB_PATH . implode( '/' , $nps) . '.php';
 				}
+				break;
 				
 				
 			default:
-				throw new Exception( $class. 'Class is not found!' );
+				throw new Exception( $class. ' Class is not found!' );
 				break;
 		}
 		
