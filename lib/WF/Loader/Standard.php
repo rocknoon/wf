@@ -29,46 +29,17 @@ class WF_Loader_Standard {
 	 */
 	public static function IncludeClass( $class )
 	{
-		
-		$APP_MODULE_PATH = APP_PATH . '/modules/';
-		$LIB_PATH = APP_PATH . "/lib/";
-		
-		$nps = explode('_', $class);
-	
-		switch( $nps[0] ){
-			
-			/**
-			 * 如果是以APP 开头则加载 app/modules 下的模块
-			 */
-			case "APP":
-				array_shift($nps);
-				require $APP_MODULE_PATH . implode( "/" , $nps) . '.php';
-				break;
-				
-			/**
-			 * 如果是以WF 开头则加载 lib/ 下的模块
-			 * 
-			 */
-			case "WF":
-				
-				//加载 Component 类
-				if( $nps[1] === 'Component' ){
-					array_shift($nps);
-					require $LIB_PATH . implode( '/' , $nps) . '.php';
-				}
-				//加载核心类
-				else{
-					require $LIB_PATH . implode( '/' , $nps) . '.php';
-				}
-				break;
-				
-				
-			default:
-				throw new Exception( $class. ' Class is not found!' );
-				break;
-		}
-		
-
+		$r = array(
+			'APP',
+			'WF_Component',
+		);
+		$s = array(
+			'modules',
+			'Component',
+		);
+		$class = str_replace($r,$s,$class);
+		$class = str_replace('_','/',$class);
+		require $class . '.php';
 	}
 	
 }
