@@ -49,31 +49,30 @@ class WF_Application_Manager {
 		
 		// 获取HTTP  请求体和返回体
 		$request 	= WF_Application_Request::Instance();
-		//$response 	= WF_Application_Response::Instance(); 
+		$response 	= WF_Application_Response::Instance(); 
 		
 		// 路由管理器初始化
 		$router = WF_Application_Router::Instance();
 		
-		// 请求分发器
-		//$dispather = WF_Application_Dispather::Instance(); 
 		// 进行路由
 		$router->router($request);
 		
-		dump($request);
-		die();
+		//dump($request);
+		//die();
 
-// 		try {
-// 			$dispather->dispath($request , $response);
-// 		}
-// 		catch(Exception $ex) {
-// 			// error controller show the error
-// 			// also system will log the error
-// 		}
+		// 请求分发器
+		try {
+			WF_Application_Dispather::dispath($request , $response); 
+		}
+		catch(Exception $ex) {
+			// error controller show the error
+			// also system will log the error
+		}
 
 		/**
 		 * 进行输出
 		 */
-		//$response->send();
+		$response->send();
 	}
 
 	/**

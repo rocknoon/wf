@@ -19,32 +19,30 @@ class WF_Application_Dispather{
 	public function dispath( WF_Application_Request $request , WF_Application_Response $response ){
 		
 		
-		//实力化出应该调用的 contrller
-		
-		//执行controller 的perAction
-		$controller->perAction();
-		
-		//执行controller 的action 部分
-		$ifRender = $controller->action();
-		
-		//执行contoller 的postAction 部分
-		$controller->postAction();
+		//实例化出应该调用的 contrller
+		$dir = $request->getDirectory();
+		$controller_key = $request->getController();
+		$controller_name = ucfirst($controller_key) . 'Controller';
+		$action = $request->getAction();
+		$hierarchy = ($request->getDirectory() === 'default') ? '' : $dir . '/';	
+		$controller_file = APP_PATH . '/app/' . $hierarchy . 'controller/' . $controller_key . '.php';
+		try{
+			require $controller_file;
+			$controller = new $controller_name();
+			//调用action
+			$ifRender = $controller->$action();
+		} catch (Exception $ex){
+			echo $ex->getMessage();
+		}
 		
 		/**
 		 * 如果需要进行渲染则 启用View引擎, 使用何种View 引擎可以在配置中进行配置
 		 */
-		if( $ifRender ){
+		if($ifRender === null){
 			
 			$view = WF_Application_View_Manager::GetView();
 			$view->render( $tpl , $response );
 			
 		}
-		
-		
-			
 	}
-	
-	
 }
-
-?>

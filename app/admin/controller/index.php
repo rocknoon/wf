@@ -1,6 +1,6 @@
 <?php
-class IndexController{
-	public function index(){
+class UserController{
+	public function login(){
 		echo 'Hello Weflex Framework';
 		return false;
 	}
