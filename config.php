@@ -4,6 +4,7 @@ $product = new stdClass();
 $product->app->debug = false;
 $product->app->engine = 'Smarty';
 $product->app->router->directory = array( "admin" ); /* 加入其他命名空间下的 controller 和 action */
+
 /*database*/
 $product->db->driver = 'mysql';
 $product->db->database = '';
