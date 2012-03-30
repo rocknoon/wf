@@ -40,8 +40,8 @@ class WF_Application_Dispather{
 		 */
 		if($ifRender === null){
 			
-			$view = WF_Application_View_Manager::GetView();
-			$view->render( $tpl , $response );
+			//$view = WF_Application_View_Manager::GetView();
+			//$view->render( $tpl , $response );
 			
 		}
 	}

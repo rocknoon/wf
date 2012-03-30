@@ -42,7 +42,7 @@ class WF_Loader_Standard {
 			 */
 			case "APP":
 				array_shift($nps);
-				include_once $APP_MODULE_PATH . implode( "/" , $nps) . '.php';
+				require $APP_MODULE_PATH . implode( "/" , $nps) . '.php';
 				break;
 				
 			/**
@@ -54,11 +54,11 @@ class WF_Loader_Standard {
 				//加载 Component 类
 				if( $nps[1] === 'Component' ){
 					array_shift($nps);
-					include_once $LIB_PATH . implode( '/' , $nps) . '.php';
+					require $LIB_PATH . implode( '/' , $nps) . '.php';
 				}
 				//加载核心类
 				else{
-					include_once $LIB_PATH . implode( '/' , $nps) . '.php';
+					require $LIB_PATH . implode( '/' , $nps) . '.php';
 				}
 				break;
 				

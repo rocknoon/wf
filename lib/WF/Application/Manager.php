@@ -65,6 +65,7 @@ class WF_Application_Manager {
 			WF_Application_Dispather::dispath($request , $response); 
 		}
 		catch(Exception $ex) {
+			throw $ex;
 			// error controller show the error
 			// also system will log the error
 		}
@@ -123,7 +124,7 @@ class WF_Application_Manager {
 		/**
 		 * 启动 WF_Loader
 		 */
-		include APP_PATH . '/lib/WF/Loader/Standard.php';
+		require APP_PATH . '/lib/WF/Loader/Standard.php';
 		WF_Loader_Standard::Start();
 		
 
