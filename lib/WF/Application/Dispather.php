@@ -2,21 +2,13 @@
 
 class WF_Application_Dispather{
 	
-	
-	/**
-	 * @return WF_Application_Dispather
-	 */
-	public static function Instance(){
-	
-	}
-
 	/**
 	 * 对请求进行分发
 	 * 
 	 * @param WF_Application_Request $request
 	 * @param WF_Application_Response $response
 	 */
-	public function dispath( WF_Application_Request $request , WF_Application_Response $response ){
+	public static function dispath( WF_Application_Request $request , WF_Application_Response $response ){
 		
 		
 		//实例化出应该调用的 contrller
@@ -40,8 +32,27 @@ class WF_Application_Dispather{
 		 */
 		if($ifRender === null){
 			
-			//$view = WF_Application_View_Manager::GetView();
-			//$view->render( $tpl , $response );
+			$view = WF_Application_View_Manager::GetView();
+			
+			//找到相应的tpl
+			$tpl   = $view->getTpl();
+			if( $tpl ){
+				$tplfile 	  = APP_PATH . '/app/' . $hierarchy . 'views/' . $controller_key . '/'.$tpl . '.phtml';
+			}else{
+				$tplfile 	  = APP_PATH . '/app/' . $hierarchy . 'views/' . $controller_key . '/'.$action . '.phtml';
+			}
+			$view->setTplFile( $tplfile );
+			
+			//如果设置了layout 找到相应的layout 文件
+			$layout   = $view->getLayout();
+			if( $layout ){
+				$layoutFile = APP_PATH . '/app/' . $hierarchy . 'views/' . $layout . '.phtml';
+			}else{
+				$layoutFile = APP_PATH . '/app/' . $hierarchy . 'views/layout.phtml';
+			}
+			$view->setLayoutFile( $layoutFile );
+			
+			$view->render( $response );
 			
 		}
 	}

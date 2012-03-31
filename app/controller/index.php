@@ -1,7 +1,12 @@
 <?php
-class IndexController{
+class IndexController extends WF_Application_Controller{
+	
+	
 	public function index(){
-		require 'User/Interface.php';
-		APP_User_Interface::test();
+
+		$this->layout("layout2");
+		$this->assign("name", "Rocky");
+		$this->render( "rocky" );		
 	}
+	
 }

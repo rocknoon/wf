@@ -1,15 +1,30 @@
 <?php 
 
-class WF_Application_View_Manger {
+class WF_Application_View_Manager {
 	
-		
+	
+	private static $_View;
+	
+	/**
+	 * @return WF_Application_View_Abstract
+	 */
 	public static function GetView(){
-		if( $config["view"] ){
-			$view = $appilcation->component($config["view"]);
-		}else{
-			$view = new WF_Application_View_Default();
+		
+		
+		if( self::$_View ){
+			return self::$_View;
 		}
-		return $view;
+		
+		if( WF_Application_Manager::$Config->app->view ){
+			$view = WF_Application_Manager::Component(
+					WF_Application_Manager::$Config->app->view
+			);
+			
+		}else{
+			$view = new WF_Application_View_Standard();
+		}
+		
+		return self::$_View = $view;
 	}
 	
 	

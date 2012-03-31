@@ -1,6 +1,7 @@
 <?php
 
 class WF_Application_Response {
+	
 	private $_headers = array(
 		'HTTP/1.1 200 OK',
 		'Content-type:text/html;charset=UTF-8',
@@ -38,7 +39,7 @@ class WF_Application_Response {
 	public function setHeader(){
 	}
 	public function setContent($data){
-		$this->_content+=$data;
+		$this->_content = $data;
 	}
 }
 
