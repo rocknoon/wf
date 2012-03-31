@@ -18,11 +18,6 @@
 		abstract public function render( WF_Application_Response $response );
 		
 		/**
-		 * 用来实现 layout 里的 $this->content() 方法
-		 */
-		abstract public function content();
-		
-		/**
 		 * 设置 模版里需要用到的变量
 		 */
 		abstract public function assign( $key , $value );

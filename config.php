@@ -13,10 +13,10 @@ $product->db->user = '';
 $product->db->password = '';
 $product->db->port = 3306;
 /*Smarty*/
-$product->smarty->temlate_dir= APP_PATH . '/app/views';
+$product->smarty->template_dir= APP_PATH . '/app/views';
 $product->smarty->compile_dir= APP_PATH . '/temp';
 $product->smarty->cache_dir= APP_PATH . '/temp';
-$product->smarty->cache_life_time= 600;
+$product->smarty->cache_lifetime= 600;
 $product->smarty->left_delimiter= '{';
 $product->smarty->right_delimiter= '}';
 $product->smarty->auto_literal= false;
