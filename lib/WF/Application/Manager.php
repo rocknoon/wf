@@ -43,6 +43,22 @@ class WF_Application_Manager {
 	 */
 	public static function Component($cName) {
 		
+		
+		$cName = ucwords($cName);
+		
+		if( isset( self::$_Component[$cName] ) ){
+			return self::$_Component[$cName];
+		}
+		
+		$cLoadFile = APP_PATH . '/lib/Component/' . $cName . '/load.php';
+		
+		if( file_exists( $cLoadFile ) ){
+			self::$_Component[$cName] = include $cLoadFile;
+			return self::$_Component[$cName];
+		}else{
+			throw new Exception( "$cName Component loading fail, WF didn't find the $cName/load.php file." );
+		}
+		
 	}
 
 	private static function _Dispath() {
