@@ -1,5 +1,3 @@
 <?php
 
-return new WF_Component_Smarty_Adapter();
-
-
+return WF_Component_Smarty_Adapter::Instance();
