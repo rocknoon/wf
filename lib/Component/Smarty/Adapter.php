@@ -55,6 +55,7 @@ class WF_Component_Smarty_Adapter extends WF_Application_View_Abstract {
 	}
 
 	public function render(WF_Application_Response $response) {
-		$reponse->setContent($this->_smarty->fetch($this->_tplFile));
+		//die($this->_smarty->fetch($this->_tplFile));
+		$response->setContent($this->_smarty->fetch($this->_tplFile));
 	}
 }

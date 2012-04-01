@@ -7,7 +7,7 @@ class WF_Application_Response {
 		'Content-type:text/html;charset=UTF-8',
 		'Server:FreeBSD/1.0',
 	);
-	private $_content = null;
+	private $_content = '';
 	/**
 	 * 单例
 	 */
@@ -42,5 +42,3 @@ class WF_Application_Response {
 		$this->_content = $data;
 	}
 }
-
-?>

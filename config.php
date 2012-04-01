@@ -2,7 +2,7 @@
 $product = new stdClass();
 /*core*/
 $product->app->debug = false;
-$product->app->engine = 'Smarty';
+$product->app->view = 'Smarty';
 $product->app->router->directory = array( "admin" ); /* 加入其他命名空间下的 controller 和 action */
 
 /*database*/
@@ -16,7 +16,7 @@ $product->db->port = 3306;
 $product->smarty->template_dir= APP_PATH . '/app/views';
 $product->smarty->compile_dir= APP_PATH . '/temp';
 $product->smarty->cache_dir= APP_PATH . '/temp';
-$product->smarty->cache_lifetime= 600;
+$product->smarty->cache_lifetime= 0;
 $product->smarty->left_delimiter= '{';
 $product->smarty->right_delimiter= '}';
 $product->smarty->auto_literal= false;

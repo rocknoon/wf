@@ -2,6 +2,7 @@
 /cache
 /upload
 /index.php
+/temp
 /.cache
 /.settings
 .project
