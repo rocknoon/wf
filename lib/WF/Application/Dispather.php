@@ -18,14 +18,12 @@ class WF_Application_Dispather{
 		$action = $request->getAction();
 		$hierarchy = ($request->getDirectory() === 'default') ? '' : $dir . '/';	
 		$controller_file = APP_PATH . '/app/' . $hierarchy . 'controller/' . $controller_key . '.php';
-		try{
-			require $controller_file;
-			$controller = new $controller_name();
-			//调用action
-			$ifRender = $controller->$action();
-		} catch (Exception $ex){
-			echo $ex->getMessage();
-		}
+	
+		require $controller_file;
+		$controller = new $controller_name();
+		//调用action
+		$ifRender = $controller->$action();
+		
 		
 		/**
 		 * 如果需要进行渲染则 启用View引擎, 使用何种View 引擎可以在配置中进行配置

@@ -4,7 +4,7 @@
  * 
  * @author Rocky  2012-3-28 
  */
-class WF_Loader_Standard {
+class WF_Loader {
 	public static function Start() {
 		return spl_autoload_register(array(__CLASS__, 'IncludeClass'));
 	}

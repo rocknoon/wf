@@ -1,9 +1,9 @@
 <?php
 $product = new stdClass();
 /*core*/
-$product->app->debug = false;
 $product->app->view = 'Smarty';
 $product->app->router->directory = array( "admin" ); /* 加入其他命名空间下的 controller 和 action */
+$product->app->error_log = APP_PATH . '/logs/error.log';
 
 /*database*/
 $product->db->driver = 'mysql';

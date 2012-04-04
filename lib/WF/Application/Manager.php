@@ -1,6 +1,8 @@
 <?php
 
-include APP_PATH . "/lib/WF/Util.php";
+require APP_PATH . '/lib/WF/Dump.php';
+require APP_PATH . '/lib/WF/Loader.php';
+require APP_PATH . '/lib/WF/Log.php';
 
 class WF_Application_Manager {
 	
@@ -29,7 +31,8 @@ class WF_Application_Manager {
 			self::_Dispath();
 		}
 		catch(Exception $ex) {
-			// system will log it.
+			//log error
+			self::_errorLog( $ex->getMessage() );
 			throw $ex;
 		}
 	}
@@ -73,17 +76,15 @@ class WF_Application_Manager {
 		// 进行路由
 		$router->router($request);
 		
-		//dump($request);
-		//die();
 
 		// 请求分发器
 		try {
 			WF_Application_Dispather::dispath($request , $response); 
 		}
 		catch(Exception $ex) {
-			throw $ex;
 			// error controller show the error
 			// also system will log the error
+			throw $ex;
 		}
 
 		/**
@@ -99,6 +100,8 @@ class WF_Application_Manager {
 	private static function _InitConfig($configFile , $env) {
 		
 		if (file_exists($configFile)) {
+			
+			//specify env config
 			require $configFile;
 			if ($env === 'product'){
 				$develop = null;
@@ -108,6 +111,21 @@ class WF_Application_Manager {
 				unset($product);
 			}
 			self::$Config = $$env;
+			
+			//check config validation.
+			
+			//create error_file
+			if( isset(self::$Config->app->error_log) && !file_exists( self::$Config->app->error_log ) ){
+				$fp=fopen(self::$Config->app->error_log, "w+"); //打开文件指针，创建文件
+				if ( !is_writable(self::$Config->app->error_log) ){
+				      throw new Exception( 'sorry the file'.self::$Config->app->error_log.' is not writable' );
+				}
+				fclose($fp);  //关闭指针
+			}
+			
+			
+		}else{
+			throw new Exception("WF didn't find $configFile config file");
 		}
 		
 	}
@@ -140,9 +158,14 @@ class WF_Application_Manager {
 		/**
 		 * 启动 WF_Loader
 		 */
-		require APP_PATH . '/lib/WF/Loader/Standard.php';
-		WF_Loader_Standard::Start();
+		WF_Loader::Start();
 		
 
 	}
+	
+	
+	private static function _errorLog( $message ){
+		WF_Log::W( array( $message ) , self::$Config->app->error_log );
+	}
+	
 }
