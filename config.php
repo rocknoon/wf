@@ -7,9 +7,9 @@ $product->app->error_log = APP_PATH . '/logs/error.log';
 
 /*database*/
 $product->db->driver = 'mysql';
-$product->db->database = '';
-$product->db->host = '';
-$product->db->user = '';
+$product->db->database = 'mysql';
+$product->db->host = '127.0.0.1';
+$product->db->user = 'root';
 $product->db->password = '';
 $product->db->port = 3306;
 /*Smarty*/
