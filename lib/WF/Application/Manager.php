@@ -1,8 +1,19 @@
 <?php
 
+/**
+ * require some core part
+ */
 require APP_PATH . '/lib/WF/Dump.php';
 require APP_PATH . '/lib/WF/Loader.php';
 require APP_PATH . '/lib/WF/Log.php';
+require APP_PATH . '/lib/WF/Session.php';
+
+require APP_PATH . '/lib/WF/Application/Dispather.php';
+require APP_PATH . '/lib/WF/Application/Request.php';
+require APP_PATH . '/lib/WF/Application/Response.php';
+require APP_PATH . '/lib/WF/Application/Router.php';
+require APP_PATH . '/lib/WF/Application/Controller.php';
+require APP_PATH . '/lib/WF/Application/View/Manager.php';
 
 class WF_Application_Manager {
 	

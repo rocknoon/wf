@@ -1,4 +1,6 @@
-<?php 
+<?php
+require APP_PATH . '/lib/WF/Application/View/Abstract.php';
+require APP_PATH . '/lib/WF/Application/View/Standard.php';
 
 class WF_Application_View_Manager {
 	

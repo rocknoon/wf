@@ -3,9 +3,8 @@
 class WF_Application_Response {
 	
 	private $_headers = array(
-		'HTTP/1.1 200 OK',
-		'Content-type:text/html;charset=UTF-8',
-		'Server:FreeBSD/1.0',
+		'HTTP/1.1 200',
+		'Content-type:text/html;charset=UTF-8'
 	);
 	private $_content = '';
 	/**

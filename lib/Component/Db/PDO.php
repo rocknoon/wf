@@ -1,6 +1,12 @@
 <?php
 class WF_Component_Db_PDO {
+	
+	/**
+	 * 
+	 * @var PDO
+	 */
 	private $pdo = null;
+	
 	private static $_instance = null;
 	private function __construct() {
 		$conf = WF_Application_Manager::$Config;
@@ -25,13 +31,14 @@ class WF_Component_Db_PDO {
 	 * @return array 结果集关联数组
 	 */
 	public function query($sql) {
-		try {
-			$state = $this->pdo->query($sql);
-			return $state->fetchAll(PDO::FETCH_COLUMN);
+		
+		$state = $this->pdo->query($sql);	
+		if( !$state ){
+			throw new Exception( $sql . " can't be executed." );
 		}
-		catch (Exception $e) {
-			throw $e;
-		}
+			
+		return $state->fetchAll(PDO::FETCH_CLASS);
+		
 	}
 	/**
 	 * sql语句执行接口
@@ -39,11 +46,12 @@ class WF_Component_Db_PDO {
 	 * @return bool 是否执行成功
 	 */
 	public function execute($sql) {
+		
 		try {
 			return $this->pdo->exec($sql);
 		}
 		catch(Exception $e) {
-			throw $e;
+			throw new Exception( $sql . " can't be executed.");
 		}
 	}
 	/**

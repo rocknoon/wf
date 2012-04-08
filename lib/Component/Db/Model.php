@@ -1,32 +1,51 @@
 <?php
-class WF_Component_Db_Adapter {
+class WF_Component_Db_Model {
+	
 	private static $_instance = array();
+	
+	/**
+	 * @var WF_Component_Db_PDO
+	 */
 	private static $_db = null;
+	
+	
+	/**
+	 * Model 所对应的表
+	 * @var String
+	 */
 	public $table;
+	
 	/**
 	 * 构造函数
 	 */
 	private function __construct($table) {
+		
+		if( !isset( $table ) ){
+			throw new Exception("you need to specify the table name for this DB model");
+		}
+		
 		if (self::$_db === null) {
-			//class_exists('WF_Component_Db_PDO') || require 'PDO.php';
 			self::$_db = WF_Component_Db_PDO::Instance();
 		}
+		
 		$this->table = $table;
 	}
 	/**
 	 * 工厂单例模式
+	 * @return WF_Component_Db_Model
 	 */
-	public static function factory($table) {
+	public static function Factory($table) {
 		if (!isset(self::$_instance[$table])) self::$_instance[$table] = new self($table);
 		return self::$_instance[$table];
 	}
+	
 	/**
 	 * 插入一条记录
 	 * 
 	 * @param data $ array 键名对应键值
 	 * @return int affect rows
 	 */
-	public function create($data) {
+	public function insert($data) {
 		foreach($data as $key => $value) {
 			$keys[] = $key;
 			$values[] = $this->escape($value);
@@ -45,7 +64,7 @@ class WF_Component_Db_Adapter {
 		foreach($data as $key => $value) {
 			$tmp = $key . '=' . $this->escape($value);
 		}
-		$sql = 'update ' . $this->table . ' set ' . implode(',', $tmp) . ($condition ? $condtion : '');
+		$sql = 'update ' . $this->table . ' set ' . implode(',', $tmp) . ($condition ? $condition : '');
 		return self::$_db->execute($sql);
 	}
 	/**
@@ -65,11 +84,19 @@ class WF_Component_Db_Adapter {
 	 * @condition string
 	 * @return array 返回结果
 	 */
-	public function read($column = null, $condition = null) {
+	public function fetch($condition = null, $pageNo = null, $pageSize = null , $column = null) {
 		$fields = is_array($column) ? implode(',', $column) : ($column ? $column : '*');
-		$sql = 'select ' . $fields . ' from ' . $this->table . ($condition ? $condition : '');
+		$sql = 'select ' . $fields . ' from ' . $this->table . ' ' . ($condition ? $condition : '');
+		
+		if( $pageNo && $pageSize ){
+			  $limitCount  = (int) $pageSize;
+			  $limitOffset = (int) $pageSize * ($pageNo - 1 );
+        	  $sql .= ' limit '.$limitOffset . ','.$limitCount;
+		}
+		
 		return self::$_db->query($sql);
 	}
+	
 	/**
 	 * 过滤变量
 	 */
