@@ -37,7 +37,7 @@ class WF_Component_Db_PDO {
 			throw new Exception( $sql . " can't be executed." );
 		}
 			
-		return $state->fetchAll(PDO::FETCH_CLASS);
+		return $state->fetchAll(PDO::FETCH_ASSOC);
 		
 	}
 	/**

@@ -10,7 +10,7 @@ $product->db->driver = 'mysql';
 $product->db->database = 'mysql';
 $product->db->host = '127.0.0.1';
 $product->db->user = 'root';
-$product->db->password = 'l2117839';
+$product->db->password = 'lovelan1life';
 $product->db->port = 3306;
 /*Smarty*/
 $product->smarty->template_dir= APP_PATH . '/app/views';

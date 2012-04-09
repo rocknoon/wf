@@ -27,7 +27,7 @@
 			$this->_params[$key] = $value;
 		}
 		
-		private function __get( $name ){
+		public function __get( $name ){
 			if(isset($this->_params[$name])){
 				return $this->_params[$name];
 			}

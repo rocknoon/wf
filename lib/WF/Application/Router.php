@@ -4,6 +4,7 @@
 	
 		private static $_instance;
 		
+		private static $_htaccess = null;
 	
 		/**
 		 * @return WF_Application_Router
@@ -16,6 +17,12 @@
 			return self::$_instance;
 		}
 
+		public function url($data ,$anchor = null){
+			if($anchor === null) {
+			} else {
+				return $this->rewrite($data,$anchor);
+			}
+		}
 		
 		
 		public function router( WF_Application_Request $request ){
@@ -81,7 +88,32 @@
 			$request->setDirectory( $result["directory"] );
 		}
 		
-		
+		private function rewrite($data, $anchor) {
+			if(self::$_htaccess === null) {
+				$ht = file_get_contents(PUBLIC_PATH . '/.htaccess');
+				if(preg_match_all('/^\s*RewriteRule\s+(\S*)\s+\S*\s+\[NC=(\w*)\]$/Um',$ht,$out)) {
+					$tmp = array();
+					foreach($out[1] as $v) {
+						$tmp[] = str_replace(array('\\','^','$'),array('','',''),$v);
+					}
+					self::$_htaccess = array_combine($out[2],$tmp);
+				}
+			}
+			$url = self::$_htaccess[$anchor];
+			foreach($data as $d){
+				$url = preg_replace('/\(.*\)/U',$d,$url,1);
+			}
+			return $url;
+			//$tmp = explode('@', $map->$anchor);
+			//$n = count($tmp)-1;
+			//$uri = array();
+			//for($i = 0;$i < $n;$i++) {
+			//	$uri[] = $tmp[$i];
+			//	$uri[] = $data[$i];
+			//	if ($i + 1 === $n) $uri[] = $tmp[$n];
+			//}
+			//return implode('', $uri);
+		}
 		
 	}
 ?>

@@ -19,6 +19,11 @@
 			$view = WF_Application_View_Manager::GetView();
 			$view->assign( $key , $value);
 		}
+
+		public function url($data, $anchor = null){
+			$router = WF_Application_Router::Instance();
+			return $router->url($data, $anchor);
+		}
 		
 		
 	}
