@@ -1,0 +1,21 @@
+1. model 应该有一个  fetchOne 方法 
+2. session set 是否序列话
+3. view url 方法
+4. url c => "", a => ""
+5. controller isPost, isGet
+6. error controller 的处理
+7. controller this->get this->redirect
+8. error controller 的实现
+
+Component -> Com
+
+1. 希望通过  $this->param->post->title , $this->param->get->title 获取参数
+
+$this->param->abc;
+
+
+2. 提供接口获取 $this->c  $this->a $this->d
+3. 提供URL 跳转
+
+
+5. $this->url().  类型的可变性

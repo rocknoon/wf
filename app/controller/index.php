@@ -1,13 +1,31 @@
 <?php
-class IndexController extends WF_Application_Controller{
+
+class IndexController extends APP_WFX_Controller_Front{
 	
-	public function index(){
-		//WF_Application_Manager::Component("DB");
-		//$uModel = WF_Component_Db_Model::Factory("user");
-		//$data = $uModel->fetch( "where User = 'root' order by User DESC" , 1 , 3 , array("Host","Password") );
-		//dump($data);
-		//die();
-		echo $this->url(array(111,222), 'show');
-		die();
+	
+	public function login(){
+		
 	}
+	
+	public function postLogin(){
+		
+		/*
+		 * 判断请求必须是  POST
+		 */
+		if(!$this->isPost()){
+			throw new Exception("you need post data");
+		}
+		
+		$userName = $this->param->username;
+		$password = $this->param->password;
+		
+		$userMod = APP_User::Instance();
+		
+		$userMod->login($userName, $password);
+		
+		$this->redirect("login");
+		
+	}
+	
+	
 }

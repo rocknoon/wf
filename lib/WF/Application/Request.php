@@ -56,6 +56,12 @@ class WF_Application_Request{
 		}
 	}
 	
+	public function getParams(){
+		return $this->_params;
+	}
+	
+	
+	
 	public function setController( $c ){
 		$this->_controller = $c;
 	}
