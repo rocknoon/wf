@@ -22,7 +22,7 @@ class WF_Loader {
 	 * @param unknown_type $class 
 	 */
 	public static function IncludeClass($class) {
-		if (strpos($class, 'WF') === 0 || strpos($class, 'APP' === 0)) {
+		if (strpos($class, 'WF') === 0 || strpos($class, 'APP') === 0) {
 			$r = array('APP',
 				'WF_Component',
 				);

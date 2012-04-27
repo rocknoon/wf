@@ -1,7 +1,6 @@
 1. $this->url().  的灵活用法
 
-type 1: $this->url( "action" , "controller" , "director" , array("id" => 1) );
-type 2: $this->url( "action" , "controller" , array("id" => 1) );
+type 1: $this->url( "controller" , "action" ,  array("id" => 1) , "director" );
 type 3: $this->url( array("id" => 1) , "anchor" );
 
 2. Component -> Com

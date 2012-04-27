@@ -1,11 +1,11 @@
 1. model 应该有一个  fetchOne 方法 
-2. session set 是否序列话
 3. view url 方法
 4. url c => "", a => ""
 5. controller isPost, isGet
 6. error controller 的处理
 7. controller this->get this->redirect
 8. error controller 的实现
+9. controller $this->title  $this->js();
 
 Component -> Com
 
@@ -19,3 +19,4 @@ $this->param->abc;
 
 
 5. $this->url().  类型的可变性
+

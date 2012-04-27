@@ -161,7 +161,7 @@ class WF_Application_Manager {
 		 */
 		set_include_path(implode(PATH_SEPARATOR, array(
 				APP_PATH . "/lib",
-				APP_PATH . "/app/modules",
+				APP_PATH . "/app",
 				get_include_path(),
 		)));
 		

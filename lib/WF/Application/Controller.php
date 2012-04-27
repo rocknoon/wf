@@ -72,6 +72,14 @@
 			return $router->url($data, $anchor);
 		}
 		
+		/**
+		 * 判断请求是否是 POST 方法
+		 * @return bool
+		 */
+		public function isPost(){
+			
+		}
+		
 		
 		/**
 		 * 构建 param 变量

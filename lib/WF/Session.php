@@ -7,12 +7,14 @@ class WF_Session{
 	
 	public static function Set( $key , $value ){
 		self::_startSession();
+		$value = serialize($value);
 		$_SESSION[$key] = $value;
 	}
 	
 	public static function Get( $key ){
 		self::_startSession();
-		return $_SESSION[$key];
+		$rtn = unserialize($_SESSION[$key]);
+		return $rtn;
 	}
 	
 	private static function _startSession(){

@@ -3,6 +3,11 @@
 class IndexController extends APP_WFX_Controller_Front{
 	
 	
+	public function index(){
+		
+		
+	}
+	
 	public function login(){
 		
 	}
