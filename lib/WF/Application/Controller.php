@@ -67,9 +67,9 @@
 		 * @param unknown_type $data
 		 * @param unknown_type $anchor
 		 */
-		public function url($data, $anchor = null){
+		public function url($arg0, $arg1, $arg2, $arg3) {
 			$router = WF_Application_Router::Instance();
-			return $router->url($data, $anchor);
+			return $router->url($arg0, $arg1, $arg2, $arg3);
 		}
 		
 		/**
@@ -88,7 +88,8 @@
 			
 			$this->param = new stdClass();
 			$request = WF_Application_Request::Instance();
-			foreach( $request->getParams() as $key => $value ){
+			$params = $request->getParams();
+			foreach( $params as $key => $value ){
 				$this->param->$key = &$value;
 			}
 		}

@@ -1,6 +1,6 @@
 <?php
 
-class WF_Component_Smarty_Adapter extends WF_Application_View_Abstract {
+class WF_Com_Smarty_Adapter extends WF_Application_View_Abstract {
 	/**
 	 * smarty对象
 	 */

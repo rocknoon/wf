@@ -1,5 +1,5 @@
 <?php
-class WF_Component_Db_PDO {
+class WF_Com_Db_PDO {
 	
 	/**
 	 * 

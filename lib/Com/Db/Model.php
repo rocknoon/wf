@@ -1,10 +1,10 @@
 <?php
-class WF_Component_Db_Model {
+class WF_Com_Db_Model {
 	
 	private static $_instance = array();
 	
 	/**
-	 * @var WF_Component_Db_PDO
+	 * @var WF_Com_Db_PDO
 	 */
 	private static $_db = null;
 	
@@ -25,14 +25,14 @@ class WF_Component_Db_Model {
 		}
 		
 		if (self::$_db === null) {
-			self::$_db = WF_Component_Db_PDO::Instance();
+			self::$_db = WF_Com_Db_PDO::Instance();
 		}
 		
 		$this->table = $table;
 	}
 	/**
 	 * 工厂单例模式
-	 * @return WF_Component_Db_Model
+	 * @return WF_Com_Db_Model
 	 */
 	public static function Factory($table) {
 		if (!isset(self::$_instance[$table])) self::$_instance[$table] = new self($table);

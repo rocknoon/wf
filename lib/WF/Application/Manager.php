@@ -50,7 +50,7 @@ class WF_Application_Manager {
 
 	/**
 	 * 首先判断是否已经载入了这个Component,  如果载入了的话则直接返回，  如果没有载入的话则去寻找
-	 * APP_PATH/lib/Component/XXX/load.php 进行载入逻辑
+	 * APP_PATH/lib/Com/XXX/load.php 进行载入逻辑
 	 * 
 	 * @return mixed $component
 	 * @param unknown_type $cName 
@@ -64,7 +64,7 @@ class WF_Application_Manager {
 			return self::$_Component[$cName];
 		}
 		
-		$cLoadFile = APP_PATH . '/lib/Component/' . $cName . '/load.php';
+		$cLoadFile = APP_PATH . '/lib/Com/' . $cName . '/load.php';
 		
 		if( file_exists( $cLoadFile ) ){
 			self::$_Component[$cName] = include $cLoadFile;

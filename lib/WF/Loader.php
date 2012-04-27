@@ -15,23 +15,26 @@ class WF_Loader {
 
 	/**
 	 * 如果找不到类的回调函数
-	 * 1. WF_Component
+	 * 1. WF_Com
 	 * 2. APP
 	 * 3. WF_
 	 * 
 	 * @param unknown_type $class 
 	 */
 	public static function IncludeClass($class) {
-		if (strpos($class, 'WF') === 0 || strpos($class, 'APP') === 0) {
-			$r = array('APP',
-				'WF_Component',
+		$pre = substr($class,0,3);
+		if ($pre === 'WF' || $pre === 'APP' || $pre === 'Ext') {
+			$r = array(
+				'APP',
+				'WF_Com',
 				);
-			$s = array('modules',
-				'Component',
+			$s = array(
+				'modules',
+				'Com',
 				);
-			$class = str_replace($r, $s, $class);
+			if($pre !== 'Ext') $class = str_replace($r, $s, $class);
 			$class = str_replace('_', '/', $class);
-			require $class . '.php';
+			require_once $class . '.php';
 		}
 	}
 }

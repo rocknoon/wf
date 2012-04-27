@@ -17,10 +17,12 @@
 			return self::$_instance;
 		}
 
-		public function url($data ,$anchor = null){
-			if($anchor === null) {
+		public function url($arg0 = null, $arg1 = null, $arg2 = null, $arg3 = null){
+			if(is_array($arg0) && is_string($arg1) && $arg2 === null && $arg3 === null) {
+				return $this->_rewrite($arg0, $arg1);
 			} else {
-				return $this->rewrite($data,$anchor);
+				if(is_array($arg2)) return $this->_defaultUrl($arg0,$arg1,$arg3,$arg2);
+				else return $this->_defaultUrl($arg0,$arg1,$arg2,$arg3);
 			}
 		}
 		
@@ -87,8 +89,11 @@
 			$request->setController( $result["controller"] );
 			$request->setDirectory( $result["directory"] );
 		}
-		
-		private function rewrite($data, $anchor) {
+
+		private function _defaultUrl($controller,$action,$dir = null,$params = null){
+		}
+
+		private function _rewrite($data, $anchor) {
 			if(self::$_htaccess === null) {
 				$ht = file_get_contents(PUBLIC_PATH . '/.htaccess');
 				if(preg_match_all('/^\s*RewriteRule\s+(\S*)\s+\S*\s+\[NC=(\w*)\]$/Um',$ht,$out)) {

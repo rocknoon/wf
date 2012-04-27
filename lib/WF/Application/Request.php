@@ -20,7 +20,7 @@ class WF_Application_Request{
 	 * 请求参数
 	 * @var array
 	 */
-	private $_params;
+	private $_params = array();
 	
 	
 	

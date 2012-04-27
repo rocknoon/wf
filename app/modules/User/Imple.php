@@ -7,7 +7,7 @@
 		
 		/**
 		 * 
-		 * @var WF_Component_Db_Model
+		 * @var WF_Com_Db_Model
 		 */
 		private $_model;
 		
