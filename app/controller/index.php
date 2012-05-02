@@ -5,7 +5,11 @@ class IndexController extends APP_WFX_Controller_Front{
 	
 	public function index(){
 		
+		$this->js( "js/index.js" );
+		$this->title( "Hello world" );
 		
+		throw new Exception("1111");
+
 	}
 	
 	public function login(){

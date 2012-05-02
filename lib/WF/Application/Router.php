@@ -16,7 +16,17 @@
 			}
 			return self::$_instance;
 		}
-
+		
+		/**
+		 * 案例 :
+		 * type 1: $this->url( "controller" , "action" ,  array("id" => 1) , "director" );
+		 * type 2: $this->url( "controller" , "action" ,  "director" , array("id" => 1) );
+		 * 或则后俩个参数 不传入  或则颠倒位置也可
+		 * 
+		 * type 2: $this->url( array("id" => 1) , "anchor" );
+		 * 
+		 * Todo : 是否需要 缓存url 的生成结果.
+		 */
 		public function url($arg0 = null, $arg1 = null, $arg2 = null, $arg3 = null){
 			if(is_array($arg0) && is_string($arg1) && $arg2 === null && $arg3 === null) {
 				return $this->_rewrite($arg0, $arg1);
@@ -24,6 +34,17 @@
 				if(is_array($arg2)) return $this->_defaultUrl($arg0,$arg1,$arg3,$arg2);
 				else return $this->_defaultUrl($arg0,$arg1,$arg2,$arg3);
 			}
+		}
+		
+		/**
+		 * 类似 url  不过生成结果 有domain 存在, 可以手动传入 domain
+		 */
+		public function urlWithDomain( $arg0 = null, $arg1 = null, $arg2 = null, $arg3 = null , $domain = null , $http = "http" ){
+			$path = $this->url( $arg0, $arg1, $arg2 , $arg3  );
+			if( $domain === null ){
+				$domain = WF_Application_Request::Instance()->getDomain();
+			}
+			return $http . "://" . $domain . $path;
 		}
 		
 		
@@ -90,9 +111,31 @@
 			$request->setDirectory( $result["directory"] );
 		}
 
-		private function _defaultUrl($controller,$action,$dir = null,$params = null){
+		/**
+		 * 生成 默认的路由 url
+		 * @param unknown_type $controller
+		 * @param unknown_type $action
+		 * @param unknown_type $dir
+		 * @param unknown_type $params
+		 * 
+		 * @author Rocky
+		 */
+		private function _defaultUrl( $controller, $action, $dir = null, $params = null ){
+			
+			$rtn = "";
+			$rtn .= WF_Application_Request::Instance()->getBaseUrl();
+			if( $dir != null ) $rtn .= $dir . '/';
+			$rtn .=  $controller;
+			$rtn .= '/' . $action;
+			if( is_array( $params ) ){
+				foreach( $params as $key => $value ){
+					$rtn .= '/' . $key . '/' . $value;
+				}
+			}
+			
+			return $rtn;
 		}
-
+	
 		private function _rewrite($data, $anchor) {
 			if(self::$_htaccess === null) {
 				$ht = file_get_contents(PUBLIC_PATH . '/.htaccess');

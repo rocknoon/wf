@@ -10,17 +10,17 @@
 		/**
 		 * @var Action name
 		 */
-		private $a;
+		private $action;
 		
 		/**
 		 * @var controller Name
 		 */
-		private $c;
+		private $controller;
 		
 		/**
 		 * @var directory name
 		 */
-		private $d;
+		private $dir;
 		
 		
 		/**
@@ -67,17 +67,58 @@
 		 * @param unknown_type $data
 		 * @param unknown_type $anchor
 		 */
-		public function url($arg0, $arg1, $arg2, $arg3) {
-			$router = WF_Application_Router::Instance();
-			return $router->url($arg0, $arg1, $arg2, $arg3);
+		public function url($arg0 = null, $arg1 = null, $arg2 = null, $arg3 = null) {
+			return WF_Application_Router::Instance()->url($arg0, $arg1, $arg2, $arg3);
 		}
+		
+		/**
+		 * 重定向
+		 * 特别: 如果 $this->redirect("http://www.sina.com");  如果只有一个参数 并且 第二个参数没有 则直接重定向
+		 */
+		public function redirect($arg0 = null, $arg1 = null, $arg2 = null, $arg3 = null){
+			
+			if( is_string( $arg0 ) && $arg1 === null ){
+				$url = $arg0;
+			}else{
+				$url = WF_Application_Router::Instance()->urlWithDomain($arg0, $arg1, $arg2, $arg3);
+			}
+			
+			
+			header('HTTP/1.1 301 Moved Permanently');
+ 			header('Location: ' . $url);
+ 			die();
+		}
+		
+		/**
+		 * 加入 js 文件
+		 */
+		public function js( $file ){
+			WF_Application_View_Manager::GetView()->addJs($file);
+		}
+		
+		/**
+		 * 加入title
+		 */
+		public function title( $title ){
+			WF_Application_View_Manager::GetView()->setTitle($title);
+		}
+		
+		
 		
 		/**
 		 * 判断请求是否是 POST 方法
 		 * @return bool
 		 */
 		public function isPost(){
-			
+			return WF_Application_Request::Instance()->isPost();
+		}
+		
+		/**
+		 * 判断请求是否是 POST 方法
+		 * @return bool
+		 */
+		public function isGet(){
+			return WF_Application_Request::Instance()->isGet();
 		}
 		
 		
@@ -97,9 +138,9 @@
 		private function _initACD(){
 			
 			$request = WF_Application_Request::Instance();
-			$this->a = $request->getAction();
-			$this->c = $request->getController();
-			$this->d = $request->getDirectory();
+			$this->action = $request->getAction();
+			$this->controller = $request->getController();
+			$this->dir = $request->getDirectory();
 		}
 		
 		

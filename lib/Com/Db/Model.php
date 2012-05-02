@@ -77,6 +77,7 @@ class WF_Com_Db_Model {
 		$sql = 'delete from ' . $this->table . ($condition ? $condition : '');
 		return self::$_db->execute($sql);
 	}
+	
 	/**
 	 * 查询
 	 * 
@@ -96,6 +97,30 @@ class WF_Com_Db_Model {
 		
 		return self::$_db->query($sql);
 	}
+	
+	/**
+	 * 只获取一条数据
+	 *
+	 * @column mixed 字段，可为有序数组或字符串
+	 * @condition string
+	 * @return array 返回结果
+	 * @author Rocky 2012-5-2
+	 */
+	public function fetchOne( $condition = null, $column = null ) {
+		$fields = is_array($column) ? implode(',', $column) : ($column ? $column : '*');
+		$sql = 'select ' . $fields . ' from ' . $this->table . ' ' . ($condition ? $condition : '');
+		$sql .= ' limit 0,1';
+	
+		$rtn = self::$_db->query($sql);
+		
+		
+		if( isset($rtn[0]) ){
+			return $rtn[0];
+		}else{
+			return null;
+		}
+	}
+	
 	
 	/**
 	 * 过滤变量

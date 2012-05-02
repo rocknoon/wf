@@ -22,8 +22,9 @@ class WF_Loader {
 	 * @param unknown_type $class 
 	 */
 	public static function IncludeClass($class) {
+		
 		$pre = substr($class,0,3);
-		if ($pre === 'WF' || $pre === 'APP' || $pre === 'Ext') {
+		if ($pre === 'WF_' || $pre === 'APP' || $pre === 'Ext') {
 			$r = array(
 				'APP',
 				'WF_Com',

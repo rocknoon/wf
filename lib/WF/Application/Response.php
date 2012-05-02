@@ -35,8 +35,17 @@ class WF_Application_Response {
 			$this->_content = null;
 		}
 	}
-	public function setHeader(){
+	
+	/**
+	 * 更改 http 返回状态码
+	 * 例如 500 404 等 
+	 * @param unknown_type $code
+	 */
+	public function setCode($code){
+		$this->_headers[0] = 'HTTP/1.1 ' . $code;
+		
 	}
+	
 	public function setContent($data){
 		$this->_content = $data;
 	}

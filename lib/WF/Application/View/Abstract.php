@@ -12,6 +12,15 @@
 		protected $_tplFile;
 		
 		
+		
+		/**
+		 * title
+		 */
+		protected $_title;
+		
+		protected $_js = array();
+		
+		
 		/**
 		 * 对某一个模版进行渲染
 		 */
@@ -49,6 +58,46 @@
 		
 		public function setLayoutFile( $layoutFile ){
 			$this->_layoutFile = $layoutFile;
+		}
+		
+		/**
+		 * url 生成器
+		 * @param unknown_type $data
+		 * @param unknown_type $anchor
+		 */
+		public function url($arg0 = null, $arg1 = null, $arg2 = null, $arg3 = null) {
+			return WF_Application_Router::Instance()->url($arg0, $arg1, $arg2, $arg3);
+		}
+		
+		/**
+		 * 输出title 段
+		 */
+		public function title(){
+			echo '<title>'.$this->_title.'</title>' . "\n";
+		}
+		
+		/**
+		 * 输出js
+		 */
+		public function js(){
+			$baseUrl = WF_Application_Request::Instance()->getBaseUrl();
+			foreach( $this->_js as $js ){
+				echo '<script type="text/javascript" src="'.$baseUrl.$js.'"></script>'. "\n";
+			}
+		}
+		
+		
+		
+		public function setTitle( $title ){
+			$this->_title = $title;
+		}
+		
+		/**
+		 * 添加一个 js
+		 * @param unknown_type $js
+		 */
+		public function addJs( $js ){
+			$this->_js []= $js;	
 		}
 		
 		

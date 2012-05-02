@@ -22,9 +22,17 @@ class WF_Application_Manager {
 	 * @var array
 	 */
 	public static $Config;
+	
+	/**
+	 * dispatch 时候的错误
+	 * @var Exception
+	 */
+	public static $DispathError;
 
 	
 	private static $_Component = array();
+	
+	
 
 	
 	/**
@@ -93,9 +101,14 @@ class WF_Application_Manager {
 			WF_Application_Dispather::dispath($request , $response); 
 		}
 		catch(Exception $ex) {
+			
+			self::$DispathError = $ex;
+			
 			// error controller show the error
-			// also system will log the error
-			throw $ex;
+			self::_dispathError();
+			
+			//log error
+			self::_errorLog( $ex->getMessage() );
 		}
 
 		/**
@@ -177,6 +190,21 @@ class WF_Application_Manager {
 	
 	private static function _errorLog( $message ){
 		WF_Log::W( array( $message ) , self::$Config->app->error_log );
+	}
+	
+	private static function _dispathError(){
+		
+		$request 	= WF_Application_Request::Instance();
+		$response 	= WF_Application_Response::Instance(); 
+		
+		$request->setAction("index");
+		$request->setController("error");
+		$request->setDirectory("default");
+		
+		$response->setCode(500);
+		
+		WF_Application_Dispather::dispath($request , $response);
+		
 	}
 	
 }

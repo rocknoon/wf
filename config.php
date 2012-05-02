@@ -5,12 +5,17 @@ $product = new stdClass();
 $product->app->router->directory = array( "admin" ); /* 加入其他命名空间下的 controller 和 action */
 $product->app->error_log = APP_PATH . '/logs/error.log';
 
+/**
+ * 可以不设置  如果不设置 则自动读取 Server["HOST"]
+ */
+$product->app->domain = "localhost";
+
 /*database*/
 $product->db->driver = 'mysql';
 $product->db->database = 'mysql';
 $product->db->host = '127.0.0.1';
-$product->db->user = 'root';
-$product->db->password = 'lovelan1life';
+$product->db->user = 'weflex_dingen';
+$product->db->password = 'dingen';
 $product->db->port = 3306;
 /*Smarty*/
 $product->smarty->template_dir= APP_PATH . '/app/views';
