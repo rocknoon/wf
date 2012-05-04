@@ -87,11 +87,13 @@
 			
 			/**
 			 * 如果urls 里还有其他参数 则把他们看成 params
+			 * 并且复制给  $_GET 全局变量
 			 */
 			while( count( $urls ) > 0 ){
 				$key = array_shift($urls);
 				$value = array_shift($urls);
 				$request->addParam( $key , $value );
+				$_GET[$key] = $value;
 			}
 			
 			
