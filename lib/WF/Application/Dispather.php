@@ -21,6 +21,7 @@ class WF_Application_Dispather{
 	
 		require $controller_file;
 		$controller = new $controller_name();
+		$controller->init();
 		//调用action
 		$ifRender = $controller->$action();
 		
@@ -31,6 +32,11 @@ class WF_Application_Dispather{
 		if($ifRender === null){
 			
 			$view = WF_Application_View_Manager::GetView();
+			if($controller->view) {
+				foreach($controller->view as $key=>$value) {
+					$view->$key = $value;
+				}
+			}
 			
 			//找到相应的tpl
 			$tpl   = $view->getTpl();

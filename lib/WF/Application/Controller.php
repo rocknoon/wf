@@ -30,7 +30,12 @@
 			
 			$this->_initParams();
 			$this->_initACD();
-			
+		}
+
+		/**
+		 *  在action之前调用
+ 		 */
+		public function init() {
 		}
 		
 		/**
@@ -120,8 +125,7 @@
 		public function isGet(){
 			return WF_Application_Request::Instance()->isGet();
 		}
-		
-		
+
 		/**
 		 * 构建 param 变量
 		 */
@@ -131,7 +135,8 @@
 			$request = WF_Application_Request::Instance();
 			$params = $request->getParams();
 			foreach( $params as $key => $value ){
-				$this->param->$key = &$value;
+				//$this->param->$key = &$value; //bug，无法取地址
+				$this->param->$key = $value;
 			}
 		}
 		

@@ -126,7 +126,7 @@
 			$rtn .= WF_Application_Request::Instance()->getBaseUrl();
 			if( $dir != null ) $rtn .= $dir . '/';
 			$rtn .=  $controller;
-			$rtn .= '/' . $action;
+			$rtn .= '/' . preg_replace('/-(\w)/ie','strtoupper(\'$1\')',$action);
 			if( is_array( $params ) ){
 				foreach( $params as $key => $value ){
 					$rtn .= '/' . $key . '/' . $value;

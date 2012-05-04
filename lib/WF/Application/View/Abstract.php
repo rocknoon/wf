@@ -2,6 +2,7 @@
 
 	abstract class WF_Application_View_Abstract {
 		
+		public $webroot;
 		
 		protected $_layout;
 		
@@ -12,13 +13,16 @@
 		protected $_tplFile;
 		
 		
-		
 		/**
 		 * title
 		 */
 		protected $_title;
 		
 		protected $_js = array();
+
+		public function __construct() {
+			$this->webroot = WF_Application_Request::Instance()->getBaseUrl();
+		}
 		
 		
 		/**

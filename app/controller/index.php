@@ -7,8 +7,9 @@ class IndexController extends APP_WFX_Controller_Front{
 		
 		$this->js( "js/index.js" );
 		$this->title( "Hello world" );
+		$this->view->m = 'what the fuck';
 		
-		throw new Exception("1111");
+		//throw new Exception("1111");
 
 	}
 	
