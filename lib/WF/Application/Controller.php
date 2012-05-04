@@ -5,28 +5,28 @@
 		/**
 		 * @var 请求参数
 		 */
-		private $param;
+		protected $param;
 		
 		/**
 		 * @var Action name
 		 */
-		private $action;
+		protected $action;
 		
 		/**
 		 * @var controller Name
 		 */
-		private $controller;
+		protected $controller;
 		
 		/**
 		 * @var directory name
 		 */
-		private $dir;
+		protected $dir;
 		
 		
 		/**
 		 * 构造方法
 		 */
-		function __construct(){
+		public function __construct(){
 			
 			$this->_initParams();
 			$this->_initACD();
