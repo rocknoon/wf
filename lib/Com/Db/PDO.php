@@ -1,20 +1,24 @@
 <?php
 class WF_Com_Db_PDO {
-	
 	/**
 	 * 
-	 * @var PDO
+	 * @var PDO 
 	 */
 	private $pdo = null;
-	
+
 	private static $_instance = null;
 	private function __construct() {
-		$conf = WF_Application_Manager::$Config;
-		$this->pdo = new PDO(
-			$conf->db->driver.':host=' . $conf->db->host . ';port=' . $conf->db->port . ';dbname=' . $conf->db->database,
-			$conf->db->user,
-			$conf->db->password,
-			array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+		try {
+			$conf = WF_Application_Manager::$Config;
+			$this->pdo = new PDO($conf->db->driver . ':host=' . $conf->db->host . ';port=' . $conf->db->port . ';dbname=' . $conf->db->database,
+				$conf->db->user,
+				$conf->db->password,
+				array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+		}
+
+		catch(PDOException $e) {
+			throw $e;
+		}
 	}
 	/**
 	 * 单例模式
@@ -31,14 +35,12 @@ class WF_Com_Db_PDO {
 	 * @return array 结果集关联数组
 	 */
 	public function query($sql) {
-		
-		$state = $this->pdo->query($sql);	
-		if( !$state ){
-			throw new Exception( $sql . " can't be executed." );
+		$state = $this->pdo->query($sql);
+		if (!$state) {
+			throw new Exception($sql . " can't be executed.");
 		}
-			
+
 		return $state->fetchAll(PDO::FETCH_ASSOC);
-		
 	}
 	/**
 	 * sql语句执行接口
@@ -46,12 +48,11 @@ class WF_Com_Db_PDO {
 	 * @return bool 是否执行成功
 	 */
 	public function execute($sql) {
-		
 		try {
 			return $this->pdo->exec($sql);
 		}
 		catch(Exception $e) {
-			throw new Exception( $sql . " can't be executed.");
+			throw new Exception($sql . " can't be executed.");
 		}
 	}
 	/**
