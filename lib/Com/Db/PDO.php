@@ -15,9 +15,8 @@ class WF_Com_Db_PDO {
 				$conf->db->password,
 				array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 		}
-
 		catch(PDOException $e) {
-			throw $e;
+			throw new Exception($e->getMessage());
 		}
 	}
 	/**
@@ -62,6 +61,6 @@ class WF_Com_Db_PDO {
 	 * @return mixed 其中string类型会进行转义，并且在两边加上单引号，方便sql语句字符串拼接
 	 */
 	public function escape($val) {
-		return is_null($val) ? 'null' : (is_bool($val) ? ($val ? 1 : 0) : (is_float($val) ? (float)$val : (is_int($val) ? (int)$val : '\'' . PDO::quote($val) . '\'')));
+		return is_null($val) ? 'null' : (is_bool($val) ? ($val ? 1 : 0) : (is_float($val) ? (float)$val : (is_int($val) ? (int)$val : $this->pdo->quote($val))));
 	}
 }
