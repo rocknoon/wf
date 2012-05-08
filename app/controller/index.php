@@ -7,7 +7,12 @@ class IndexController extends APP_WFX_Controller_Front{
 		
 		$this->js( "js/index.js" );
 		$this->title( "Hello world" );
-		$this->view->m = 'what the fuck';
+		$user = WF_Com_Db_Model::Factory('user');
+
+		$cond = $user->eq('User','root');
+		$data = $user->fetch($cond);
+		dump($data);
+		exit;
 		
 		//throw new Exception("1111");
 
