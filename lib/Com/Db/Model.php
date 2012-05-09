@@ -129,38 +129,90 @@ class WF_Com_Db_Model {
 		}
 	}
 	/**
-	 * 
+	 * 条件构造 相等
+	 * 参数说明：接受两个参数(数组,连接形式)和三个参数(字段名,值,连接形式)
+	 * 注：连接形式默认为and，需要时传or
+	 * @param $arg0 mixed
+	 * @param $arg1 string
+	 * @param $arg2 string
 	 */
 	public function eq($arg0, $arg1 = null, $arg2 = null) {
 		$this->_one_to_one('=', $arg0, $arg1, $arg2);
 		return $this->_cond;
 	}
 
+	/**
+	 * 条件构造 不等
+	 * 参数说明：接受两个参数(数组,连接形式)和三个参数(字段名,值,连接形式)
+	 * 注：连接形式默认为and，需要时传or
+	 * @param $arg0 mixed
+	 * @param $arg1 string
+	 * @param $arg2 string
+	 */
 	public function ueq($arg0, $arg1 = null, $arg2 = null) {
 		$this->_one_to_one('!=', $arg0, $arg1, $arg2);
 		return $this->_cond;
 	}
 
+	/**
+	 * 条件构造 小于
+	 * 参数说明：接受两个参数(数组,连接形式)和三个参数(字段名,值,连接形式)
+	 * 注：连接形式默认为and，需要时传or
+	 * @param $arg0 mixed
+	 * @param $arg1 string
+	 * @param $arg2 string
+	 */
 	public function lt($arg0, $arg1 = null, $arg2 = null) {
 		$this->_one_to_one('<', $arg0, $arg1, $arg2);
 		return $this->_cond;
 	}
 
+	/**
+	 * 条件构造 大于
+	 * 参数说明：接受两个参数(数组,连接形式)和三个参数(字段名,值,连接形式)
+	 * 注：连接形式默认为and，需要时传or
+	 * @param $arg0 mixed
+	 * @param $arg1 string
+	 * @param $arg2 string
+	 */
 	public function gt($arg0, $arg1 = null, $arg2 = null) {
 		$this->_one_to_one('>', $arg0, $arg1, $arg2);
 		return $this->_cond;
 	}
 
+	/**
+	 * 条件构造 小于等于
+	 * 参数说明：接受两个参数(数组,连接形式)和三个参数(字段名,值,连接形式)
+	 * 注：连接形式默认为and，需要时传or
+	 * @param $arg0 mixed
+	 * @param $arg1 string
+	 * @param $arg2 string
+	 */
 	public function lte($arg0, $arg1 = null, $arg2 = null) {
 		$this->_one_to_one('<=', $arg0, $arg1, $arg2);
 		return $this->_cond;
 	}
 
+	/**
+	 * 条件构造 大于等于
+	 * 参数说明：接受两个参数(数组,连接形式)和三个参数(字段名,值,连接形式)
+	 * 注：连接形式默认为and，需要时传or
+	 * @param $arg0 mixed
+	 * @param $arg1 string
+	 * @param $arg2 string
+	 */
 	public function gte($arg0, $arg1 = null, $arg2 = null) {
 		$this->_one_to_one('>=', $arg0, $arg1, $arg2);
 		return $this->_cond;
 	}
 
+	/**
+	 * 条件构造 取之间
+	 * @param $field string 字段名
+	 * @param $left_value string 左值
+	 * @param $right_value string 右值
+	 * @param $attach string 连接形式 默认为 and
+	 */
 	public function between($field, $left_value, $right_value, $attach = 'and') {
 		if($this->_switch === true) {
 			$this->_cond = null;
@@ -171,6 +223,14 @@ class WF_Com_Db_Model {
 		return $this->_cond;
 	}
 
+	/**
+	 * 条件构造器
+	 * 参数说明：接受三个参数(符号,数组,连接形式)和四个参数(符号,字段名,值,连接形式)
+	 * @param $symbol 符号 如"= >= !="
+	 * @param $arg0 mixed
+	 * @param $arg1 string
+	 * @param $arg2 string
+	 */
 	private function _one_to_one($symbol, $arg0, $arg1, $arg2) {
 		if($this->_switch === true) {
 			$this->_cond = null;
