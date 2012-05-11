@@ -7,6 +7,7 @@ require APP_PATH . '/lib/WF/Dump.php';
 require APP_PATH . '/lib/WF/Loader.php';
 require APP_PATH . '/lib/WF/Log.php';
 require APP_PATH . '/lib/WF/Session.php';
+require APP_PATH . '/lib/WF/Functions.php';
 
 require APP_PATH . '/lib/WF/Application/Dispather.php';
 require APP_PATH . '/lib/WF/Application/Request.php';
