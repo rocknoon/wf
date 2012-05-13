@@ -1,0 +1,8 @@
+Welcome To WF Framwork:
+
+The aim is to replace the Zend Framework which i think is too huge and slow.  Many of our case is only to use small part of ZendFramwork,  so our team write this
+WF framework to simplely implement the MVC, and you can easily to integrate your own Component into Framework.
+
+If you have any question,  please contact with me : luoqi.rocky@gmail.com
+
+Thanks!
