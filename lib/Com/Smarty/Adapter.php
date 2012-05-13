@@ -10,8 +10,10 @@ class WF_Com_Smarty_Adapter extends WF_Application_View_Abstract {
 
 	/**
 	 * 私有化构造函数，只能进行单例获取对象
+	 * 2012-5-13  @rocky  没有私有化, Zend Studio 要报错
+	 * 
 	 */
-	private function __construct() {
+    function __construct() {
 		require 'Smarty.class.php';
 		$this->_smarty = new Smarty();
 
